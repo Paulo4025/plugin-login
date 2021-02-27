@@ -3,7 +3,7 @@ package pluginlogin.model.dto;
 public class SignUpFormDto {
 
 	private String nomeCompleto;
-	private String numeroCpf;
+	private String numeroDocumentoCPF;
 	private String email;
 
 	public String getNomeCompleto() {
@@ -14,12 +14,12 @@ public class SignUpFormDto {
 		this.nomeCompleto = nomeCompleto;
 	}
 
-	public String getNumeroCpf() {
-		return numeroCpf;
+	public String getNumeroDocumentoCPF() {
+		return numeroDocumentoCPF;
 	}
 
-	public void setNumeroCpf(String numeroCpf) {
-		this.numeroCpf = numeroCpf;
+	public void setNumeroDocumentoCPF(String numeroDocumentoCPF) {
+		this.numeroDocumentoCPF = numeroDocumentoCPF;
 	}
 
 	public String getEmail() {
