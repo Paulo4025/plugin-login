@@ -2,11 +2,11 @@ import { Component, OnInit } from "@angular/core";
 import { FormGroup, FormControl, Validators } from "@angular/forms";
 import { MatSnackBar } from "@angular/material/snack-bar";
 import { Router } from "@angular/router";
-import { UtilConstant } from "plugins/plugin-util-common/util-common-frontend/src/app/util-constants";
-import { UtilFuncoes } from "plugins/plugin-util-common/util-common-frontend/src/app/util-funcoes";
-import { MensagemDto } from "plugins/plugin-util-common/util-common-frontend/src/app/util-interface/MensagemDto";
-import { UtilLoader } from "plugins/plugin-util-common/util-common-frontend/src/app/util-loader/util-loader";
-import { UtilService } from "plugins/plugin-util-common/util-common-frontend/src/app/util-service";
+import { UtilConstant } from "plugins/plugin-common/plugin-common-frontend/src/app/util-constants";
+import { UtilFuncoes } from "plugins/plugin-common/plugin-common-frontend/src/app/util-funcoes";
+import { MensagemDto } from "plugins/plugin-common/plugin-common-frontend/src/app/util-interface/MensagemDto";
+import { UtilLoader } from "plugins/plugin-common/plugin-common-frontend/src/app/util-loader/util-loader";
+import { UtilService } from "plugins/plugin-common/plugin-common-frontend/src/app/util-service";
 import { ServiceConfig } from "../service/ServiceConfig";
 
 @Component({
@@ -78,14 +78,14 @@ export class SignupComponent implements OnInit {
             this.signUpForm.valid &&
             this.signUpForm.get("checkTermosServicos").value
           ) {
-            this.serviceConfig.service.realizarCadastroBasico.json = {
+            this.serviceConfig.serviceInterface.realizarCadastroBasico.json = {
               celular: this.signUpForm.get("celular").value,
               nomeCompleto: this.signUpForm.get("nomeCompleto").value.toLowerCase(),
               numeroDocumentoCPF: this.utilFuncoes.removerMascaraCPF(this.signUpForm),
               email: this.signUpForm.get("email").value.toLowerCase(),
             };
             this.utilService
-              .service(this.serviceConfig.service.realizarCadastroBasico)
+              .service(this.serviceConfig.serviceInterface.realizarCadastroBasico)
               .then((mensagemDto: MensagemDto) => {
                 this.matSnackBar.open(
                   mensagemDto.codigo + " - " + mensagemDto.mensagem,

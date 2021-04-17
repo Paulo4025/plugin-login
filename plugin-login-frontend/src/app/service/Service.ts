@@ -1,7 +1,7 @@
 import { Injectable } from "@angular/core";
-import { ListaTipoCidadeDto } from "plugins/plugin-util-common/util-common-frontend/src/app/util-interface/ListaTipoCidadeDto";
-import { ListaTipoEstadoDto } from "plugins/plugin-util-common/util-common-frontend/src/app/util-interface/ListaTipoEstadoDto";
-import { UserResponseDto } from "plugins/plugin-util-common/util-common-frontend/src/app/util-interface/UserResponseDto";
+import { ListaTipoCidadeDto } from "plugins/plugin-common/plugin-common-frontend/src/app/util-interface/ListaTipoCidadeDto";
+import { ListaTipoEstadoDto } from "plugins/plugin-common/plugin-common-frontend/src/app/util-interface/ListaTipoEstadoDto";
+import { UserResponseDto } from "plugins/plugin-common/plugin-common-frontend/src/app/util-interface/UserResponseDto";
 
 @Injectable()
 export class Service {

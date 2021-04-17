@@ -1,10 +1,10 @@
 import { Component, OnInit } from "@angular/core";
 import { FormGroup, FormControl, Validators } from "@angular/forms";
 import { MatSnackBar } from "@angular/material/snack-bar";
-import { UtilFuncoes } from "plugins/plugin-util-common/util-common-frontend/src/app/util-funcoes";
-import { MensagemDto } from "plugins/plugin-util-common/util-common-frontend/src/app/util-interface/mensagemDto";
-import { UtilLoader } from "plugins/plugin-util-common/util-common-frontend/src/app/util-loader/util-loader";
-import { UtilService } from "plugins/plugin-util-common/util-common-frontend/src/app/util-service";
+import { UtilFuncoes } from "plugins/plugin-common/plugin-common-frontend/src/app/util-funcoes";
+import { MensagemDto } from "plugins/plugin-common/plugin-common-frontend/src/app/util-interface/mensagemDto";
+import { UtilLoader } from "plugins/plugin-common/plugin-common-frontend/src/app/util-loader/util-loader";
+import { UtilService } from "plugins/plugin-common/plugin-common-frontend/src/app/util-service";
 import { ServiceConfig } from "../service/ServiceConfig";
 
 @Component({
@@ -43,14 +43,14 @@ export class RecuperarSenhaComponent implements OnInit {
         this.recuperarSenhaForm.markAllAsTouched();
         if (this.recuperarSenhaForm.valid) {
           this.verificarNumeroCPF();
-          this.serviceConfig.service.recuperarSenhaUsuario.json = {
+          this.serviceConfig.serviceInterface.recuperarSenhaUsuario.json = {
             email: this.recuperarSenhaForm.get("email").value,
             numeroDocumentoCPF: this.utilFuncoes.removerMascaraCPF(
               this.recuperarSenhaForm
             ),
           };
           this.utilService
-            .service(this.serviceConfig.service.recuperarSenhaUsuario)
+            .service(this.serviceConfig.serviceInterface.recuperarSenhaUsuario)
             .then((mensagemDto: MensagemDto) => {
               this.utilFuncoes.routerRedirect("/login");
               this.recuperarSenhaForm.reset();

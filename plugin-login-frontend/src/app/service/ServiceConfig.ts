@@ -1,6 +1,6 @@
 import { Injectable } from "@angular/core";
 import { Configuration } from "configuration/ambient/configuration";
-import { UtilConstant } from "plugins/plugin-util-common/util-common-frontend/src/app/util-constants";
+import { UtilConstant } from "plugins/plugin-common/plugin-common-frontend/src/app/util-constants";
 import { ServiceInterface } from "./ServiceInterface";
 
 @Injectable()
@@ -10,7 +10,7 @@ export class ServiceConfig {
     private configuration: Configuration
   ) {}
 
-  public service: ServiceInterface = {
+  public serviceInterface: ServiceInterface = {
     consultarListaTipoCargo: {
       endPoint:
         this.configuration.ambient.endPoint + "/tipoService/consultarTipoCargo",

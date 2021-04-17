@@ -2,12 +2,12 @@ import { Component, OnInit } from "@angular/core";
 import { FormGroup, FormControl, Validators } from "@angular/forms";
 import { MatSnackBar } from "@angular/material/snack-bar";
 import { Router } from "@angular/router";
-import { UtilConstant } from "plugins/plugin-util-common/util-common-frontend/src/app/util-constants";
-import { UtilFuncoes } from "plugins/plugin-util-common/util-common-frontend/src/app/util-funcoes";
-import { Ip } from "plugins/plugin-util-common/util-common-frontend/src/app/util-interface/Ip";
-import { SignInResponseDto } from "plugins/plugin-util-common/util-common-frontend/src/app/util-interface/SignInResponseDto";
-import { UtilLoader } from "plugins/plugin-util-common/util-common-frontend/src/app/util-loader/util-loader";
-import { UtilService } from "plugins/plugin-util-common/util-common-frontend/src/app/util-service";
+import { UtilConstant } from "plugins/plugin-common/plugin-common-frontend/src/app/util-constants";
+import { UtilFuncoes } from "plugins/plugin-common/plugin-common-frontend/src/app/util-funcoes";
+import { Ip } from "plugins/plugin-common/plugin-common-frontend/src/app/util-interface/Ip";
+import { SignInResponseDto } from "plugins/plugin-common/plugin-common-frontend/src/app/util-interface/SignInResponseDto";
+import { UtilLoader } from "plugins/plugin-common/plugin-common-frontend/src/app/util-loader/util-loader";
+import { UtilService } from "plugins/plugin-common/plugin-common-frontend/src/app/util-service";
 import { ServiceConfig } from "../service/ServiceConfig";
 @Component({
   selector: "app-login",
@@ -51,7 +51,7 @@ export class LoginComponent implements OnInit {
             this.signInForm
           );
           if (this.signInForm.valid) {
-            this.serviceConfig.service.login.json = {
+            this.serviceConfig.serviceInterface.login.json = {
               numeroDocumentoCPF: this.utilFuncoes.removerMascaraCPF(
                 this.signInForm
               ),
@@ -59,7 +59,7 @@ export class LoginComponent implements OnInit {
               ipDispositivo : ip.ip
             };
             this.utilService
-              .service(this.serviceConfig.service.login)
+              .service(this.serviceConfig.serviceInterface.login)
               .then((SignInResponseDto: SignInResponseDto) => {
                 this.matSnackBar.open(
                   SignInResponseDto.mensagemDto.codigo +
