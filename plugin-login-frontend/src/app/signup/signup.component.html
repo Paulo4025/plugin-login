@@ -1,25 +1,16 @@
 <main>
   <section class="section section-shaped section-lg">
-    <div class="shape shape-style-1 bg-gradient-default">
-      <span></span>
-      <span></span>
-      <span></span>
-      <span></span>
-      <span></span>
-      <span></span>
-      <span></span>
-      <span></span>
-    </div>
+    <div class="shape shape-style-1 bg-gradient-default"></div>
     <div class="container pt-lg-md">
       <div class="row justify-content-center">
         <div class="col-lg-5">
           <div class="card bg-secondary shadow border-0">
             <div class="card-header bg-white">
-              <div class="text-muted text-center">
+              <!--<div class="text-muted text-center">
                 <img src="./assets/img/brand/logo-use-clinic.png">
-              </div>
+              </div>-->
               <div class="text-muted text-center">
-                <p class="text-tittle">Preencha o formulario para iniciar o processo de registro no useClinic.</p>
+                <p class="text-tittle">Criar conta</p>
               </div>
               <!--<div class="text-center">
                 <a href="javascript:void(0)" class="btn btn-neutral btn-icon mr-4">
@@ -41,22 +32,27 @@
                 <small>Or sign up with credentials</small>
               </div>-->
               <form [formGroup]="signUpForm">
-                <mat-form-field appearance="outline">
+                <mat-form-field appearance="fill">
+                  <mat-label><small>Celular</small></mat-label>
+                  <input matInput formControlName="celular" type="celular"/>
+                </mat-form-field>
+                <mat-form-field appearance="fill">
                   <mat-label><small>E-mail</small></mat-label>
-                  <input matInput placeholder="fulano.silva@email.com" formControlName="email">
+                  <input matInput formControlName="email" type="email"/>
                 </mat-form-field>
-                <mat-form-field appearance="outline">
+                <mat-form-field appearance="fill">
                   <mat-label><small>Nome completo</small></mat-label>
-                  <input matInput placeholder="fulano da silva" formControlName="nomeCompleto">
+                  <input matInput formControlName="nomeCompleto" type="text" />
                 </mat-form-field>
-                <mat-form-field appearance="outline">
+                <mat-form-field appearance="fill">
                   <mat-label><small>CPF</small></mat-label>
-                  <input matInput placeholder="000.000.000-00" formControlName="numeroDocumentoCPF" (blur)='adicionarMascaraCPF()'>
+                  <input matInput formControlName="numeroDocumentoCPF" type="text" (blur)="adicionarMascaraCPF()" />
                 </mat-form-field>
                 <div class="row my-4">
                   <div class="col-12">
                     <div class="custom-control custom-control-alternative custom-checkbox">
-                      <input class="custom-control-input" id="customCheckRegister" type="checkbox" formControlName="checkTermosServicos">
+                      <input class="custom-control-input" id="customCheckRegister" type="checkbox"
+                        formControlName="checkTermosServicos" />
                       <label class="custom-control-label" for="customCheckRegister">
                         <span>Eu li e concordo com os
                           <a href="javascript:void(0)" class="temos">temos e condições de uso.</a>
@@ -66,7 +62,9 @@
                   </div>
                 </div>
                 <div class="text-center">
-                  <button type="button" class="btn btn-primary mt-4" (click)="realizarPreRegistro()">Criar conta</button>
+                  <button type="button" class="btn btn-primary mt-4" (click)="realizarPreRegistro()">
+                    Criar conta
+                  </button>
                 </div>
               </form>
             </div>

@@ -5,6 +5,15 @@ public class SignUpFormDto {
 	private String nomeCompleto;
 	private String numeroDocumentoCPF;
 	private String email;
+	private String celular;
+
+	public String getCelular() {
+		return celular;
+	}
+
+	public void setCelular(String celular) {
+		this.celular = celular;
+	}
 
 	public String getNomeCompleto() {
 		return nomeCompleto;

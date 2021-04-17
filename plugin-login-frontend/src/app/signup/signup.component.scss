@@ -1,30 +1,35 @@
+.text-light {
+  color: #fff !important;
+}
 mat-form-field {
   width: 100%;
 }
 .temos {
-  color: #6ec1e4;
+  color: #000;
 }
 .text-tittle {
-  color: #6ec1e4;
+  color: #000;
   font-weight: 900;
 }
 .btn {
-  background-color: #6ec1e4;
-  border-color: #6ec1e4;
+  background-color: #000;
+  border-color: #000;
 }
 .custom-checkbox .custom-control-input:checked ~ .custom-control-label::before {
-  background-color: #6ec1e4;
+  background-color: #000;
 }
 .bg-gradient-default {
-  background: linear-gradient(87deg, #6ec1e4 0, #6ec1e4 100%) !important;
+  background-image: url("./../../../../../../src/assets/img/theme/background.jpg") !important;
+  background-size: cover !important;
+  filter: brightness(0.2);
 }
 ::ng-deep .mat-focused .mat-form-field-label {
   /*change color of label*/
-  color: #6ec1e4 !important;
+  color: #000 !important;
 }
 ::ng-deep .mat-ho .mat-form-field-label {
   /*change color of label*/
-  color: #6ec1e4 !important;
+  color: #000 !important;
 }
 
 ::ng-deep .mat-form-field-outline {
@@ -35,24 +40,58 @@ mat-form-field {
   .mat-form-field-appearance-outline:not(.mat-form-field-disabled)
   .mat-form-field-flex:hover
   .mat-form-field-outline-thick {
-  color: #6ec1e4 !important;
+  color: none !important;
 }
 ::ng-deep
   .mat-form-field-appearance-outline:not(.mat-form-field-disabled)
   .mat-form-field-flex:focus
   .mat-form-field-outline-thick
   .mat-focused {
-  color: #6ec1e4 !important;
+  color: none !important;
 }
 //input outline color
 ::ng-deep .mat-form-field-appearance-outline .mat-form-field-outline {
-  color: darkgrey !important;
-  opacity: 0.1 !important;
+  color: #000 !important;
+  border-width: 3rem !important;
 }
 
 //mat-input focused color
 ::ng-deep
   .mat-form-field-appearance-outline.mat-focused
   .mat-form-field-outline-thick {
-  color: #6ec1e4 !important;
+  color: none !important;
+}
+.text-tittle {
+  margin: 0px !important;
+  font-weight: 600;
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+  color: none;
+}
+.card-body {
+  background-color: #fff !important;
+}
+.card-header {
+  border: 0;
+}
+.py-lg-5 {
+  padding-top: 0rem !important;
+  padding-bottom: 2rem !important;
+}
+.btn {
+  text-transform: lowercase;
+}
+.mat-form-field-appearance-fill .mat-form-field-flex {
+  background-color: #fff !important;
+}
+.pt-lg-4,
+.py-lg-4 {
+  padding-top: 0rem !important;
+}
+.mt-4,
+.my-4 {
+  margin-top: 0rem !important;
+}
+.section-shaped {
+  height: 100vh;
 }

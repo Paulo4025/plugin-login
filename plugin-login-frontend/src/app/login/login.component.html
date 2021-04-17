@@ -1,25 +1,17 @@
 <main>
   <section class="section section-shaped section-lg">
     <div class="shape shape-style-1 bg-gradient-default">
-      <span></span>
-      <span></span>
-      <span></span>
-      <span></span>
-      <span></span>
-      <span></span>
-      <span></span>
-      <span></span>
     </div>
     <div class="container pt-lg-md">
       <div class="row justify-content-center">
         <div class="col-lg-5">
           <div class="card bg-secondary shadow border-0">
             <div class="card-header bg-white">
+              <!--<div class="text-muted text-center">
+                <img src="./assets/img/brand/succint-name.png">
+              </div>-->
               <div class="text-muted text-center">
-                <img src="./assets/img/brand/logo-use-clinic.png">
-              </div>
-              <div class="text-muted text-center">
-                <p class="text-tittle">Iniciar sessão.</p>
+                <p class="text-tittle">Iniciar sessão</p>
               </div>
               <!--<div class="btn-wrapper text-center">
                 <a href="javascript:void(0)" class="btn btn-neutral btn-icon">
@@ -41,31 +33,31 @@
                 <small>Or sign in with credentials</small>
               </div>-->
               <form [formGroup]="signInForm">
-                <mat-form-field appearance="outline">
+                <mat-form-field appearance="fill">
                   <mat-label><small>CPF</small></mat-label>
-                  <input matInput placeholder="000.000.000-00" formControlName="numeroDocumentoCPF" (blur)='verificarNumeroCPF()'>
+                  <input matInput formControlName="numeroDocumentoCPF" (blur)='verificarNumeroCPF()'>
                 </mat-form-field>
-                <mat-form-field appearance="outline">
+                <mat-form-field appearance="fill">
                   <mat-label><small>Senha</small></mat-label>
-                  <input matInput placeholder="**********" formControlName="senha">
+                  <input matInput formControlName="senha">
                 </mat-form-field>
                 <div class="text-center">
-                  <button type="button" class="btn btn-primary my-4" (click)="realizarLogin()">Entrar</button>
+                  <button type="button" class="btn btn-primary my-2" (click)="realizarLogin()">iniciar sessão</button>
                 </div>
               </form>
             </div>
           </div>
           <div class="row mt-3">
             <div class="col-6">
-              <a href="javascript:void(0)" class="text-light">
-                <small>Esqueceu a senha?</small>
+              <a href="#/recuperar-senha" class="text-light">
+                <small>Recuperar minha senha</small>
               </a>
             </div>
-            <!--<div class="col-6 text-right">
-              <a href="javascript:void(0)" class="text-light">
-                <small>Create new account</small>
+            <div class="col-6 text-right">
+              <a href="#/register" class="text-light">
+                <small>Criar uma conta</small>
               </a>
-            </div>-->
+            </div>
           </div>
         </div>
       </div>

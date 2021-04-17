@@ -26,6 +26,13 @@ export class SignupComponent implements OnInit {
   ) { }
 
   private signUpForm = new FormGroup({
+    celular: new FormControl(
+      "",
+      Validators.compose([
+        Validators.required,
+        Validators.pattern(this.utilConstant.expressaoRegular.numeroCelular),
+      ])
+    ),
     email: new FormControl(
       "",
       Validators.compose([
@@ -51,11 +58,11 @@ export class SignupComponent implements OnInit {
   });
 
   ngOnInit() {
-    this.utilFuncoes.routerRedirect("/user-profile");
+    //this.utilFuncoes.routerRedirect("/user-profile");
   }
 
   adicionarMascaraCPF() {
-    this.signUpForm = this.utilFuncoes.adicionarMascaraCNPJCPF(this.signUpForm);
+    this.signUpForm = this.utilFuncoes.adicionarMascaraCPF(this.signUpForm);
   }
 
   realizarPreRegistro() {
@@ -72,44 +79,22 @@ export class SignupComponent implements OnInit {
             this.signUpForm.get("checkTermosServicos").value
           ) {
             this.serviceConfig.service.realizarCadastroBasico.json = {
-              nomeCompleto: this.signUpForm
-                .get("nomeCompleto")
-                .value.toLowerCase(),
-              numeroDocumentoCPF: this.utilFuncoes.removerMascaraCPF(
-                this.signUpForm
-              ),
+              celular: this.signUpForm.get("celular").value,
+              nomeCompleto: this.signUpForm.get("nomeCompleto").value.toLowerCase(),
+              numeroDocumentoCPF: this.utilFuncoes.removerMascaraCPF(this.signUpForm),
               email: this.signUpForm.get("email").value.toLowerCase(),
             };
             this.utilService
               .service(this.serviceConfig.service.realizarCadastroBasico)
-              .then((MensagemDto: MensagemDto) => {
+              .then((mensagemDto: MensagemDto) => {
                 this.matSnackBar.open(
-                  MensagemDto.codigo + " - " + MensagemDto.mensagem,
+                  mensagemDto.codigo + " - " + mensagemDto.mensagem,
                   "X"
                 );
-                if (MensagemDto.status === true) {
+                if (mensagemDto.status === true) {
                   this.utilFuncoes.routerRedirect("/user-profile");
                 } else {
-                  switch (MensagemDto.codigo) {
-                    case 2:
-                      this.signUpForm
-                        .get("numeroDocumentoCPF")
-                        .setErrors({ incorrect: true });
-                      this.signUpForm
-                        .get("email")
-                        .setErrors({ incorrect: true });
-                      break;
-                    case 3:
-                      this.signUpForm
-                        .get("email")
-                        .setErrors({ incorrect: true });
-                      break;
-                    case 4:
-                      this.signUpForm
-                        .get("numeroDocumentoCPF")
-                        .setErrors({ incorrect: true });
-                      break;
-                  }
+                  this.gerenciarCoresFormularioCadastro(mensagemDto);
                 }
               })
               .catch((err) => {
@@ -136,5 +121,52 @@ export class SignupComponent implements OnInit {
           this.utilLoader.hide(isLoading);
         }
       });
+  }
+
+  gerenciarCoresFormularioCadastro(mensagemDto: MensagemDto) {
+    switch (mensagemDto.codigo) {
+      case 2:
+        this.signUpForm
+          .get("numeroDocumentoCPF")
+          .setErrors({ incorrect: true });
+        this.signUpForm
+          .get("email")
+          .setErrors({ incorrect: true });
+        break;
+      case 3:
+        this.signUpForm
+          .get("email")
+          .setErrors({ incorrect: true });
+        break;
+      case 4:
+        this.signUpForm
+          .get("numeroDocumentoCPF")
+          .setErrors({ incorrect: true });
+        break;
+      case 46:
+        this.signUpForm
+          .get("celular")
+          .setErrors({ incorrect: true });
+        break;
+      case 47:
+        this.signUpForm
+          .get("celular")
+          .setErrors({ incorrect: true });
+        this.signUpForm
+          .get("email")
+          .setErrors({ incorrect: true });
+        break;
+      case 48:
+        this.signUpForm
+          .get("celular")
+          .setErrors({ incorrect: true });
+        this.signUpForm
+          .get("numeroDocumentoCPF")
+          .setErrors({ incorrect: true });
+        this.signUpForm
+          .get("email")
+          .setErrors({ incorrect: true });
+        break;
+    }
   }
 }

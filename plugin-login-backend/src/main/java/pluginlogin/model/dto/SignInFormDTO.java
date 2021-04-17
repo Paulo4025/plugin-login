@@ -4,6 +4,15 @@ public class SignInFormDTO {
 
 	private String numeroDocumentoCPF;
 	private String senha;
+	private String ipDispositivo;
+
+	public String getIpDispositivo() {
+		return ipDispositivo;
+	}
+
+	public void setIpDispositivo(String ipDispositivo) {
+		this.ipDispositivo = ipDispositivo;
+	}
 
 	public String getNumeroDocumentoCPF() {
 		return numeroDocumentoCPF;
