@@ -2,7 +2,7 @@ import { Component, OnInit } from "@angular/core";
 import { FormGroup, FormControl, Validators } from "@angular/forms";
 import { MatSnackBar } from "@angular/material/snack-bar";
 import { Router } from "@angular/router";
-import { UtilConstant } from "plugins/plugin-common/plugin-common-frontend/src/app/util-constants";
+import { UtilConstants } from "plugins/plugin-common/plugin-common-frontend/src/app/util-constants";
 import { UtilFuncoes } from "plugins/plugin-common/plugin-common-frontend/src/app/util-funcoes";
 import { Ip } from "plugins/plugin-common/plugin-common-frontend/src/app/util-interface/Ip";
 import { SignInResponseDto } from "plugins/plugin-common/plugin-common-frontend/src/app/util-interface/SignInResponseDto";
@@ -22,7 +22,7 @@ export class LoginComponent implements OnInit {
     private utilFuncoes: UtilFuncoes,
     private serviceConfig: ServiceConfig,
     private router: Router,
-    private utilConstant: UtilConstant
+    private utilConstants: UtilConstants
   ) { }
 
   private signInForm = new FormGroup({
@@ -56,25 +56,25 @@ export class LoginComponent implements OnInit {
                 this.signInForm
               ),
               senha: this.signInForm.get("senha").value,
-              ipDispositivo : ip.ip
+              ipDispositivo: ip.ip,
             };
             this.utilService
               .service(this.serviceConfig.serviceInterface.login)
-              .then((SignInResponseDto: SignInResponseDto) => {
+              .then((signInResponseDto: SignInResponseDto) => {
                 this.matSnackBar.open(
-                  SignInResponseDto.mensagemDto.codigo +
+                  signInResponseDto.mensagemDto.codigo +
                   " - " +
-                  SignInResponseDto.mensagemDto.mensagem,
+                  signInResponseDto.mensagemDto.mensagem,
                   "X"
                 );
-                if (SignInResponseDto.mensagemDto.status === true) {
+                if (signInResponseDto.mensagemDto.status === true) {
                   localStorage.setItem(
-                    this.utilConstant.constants.sessao.usuario,
-                    SignInResponseDto.numeroDocumentoCPF
+                    this.utilConstants.SESSAO.USUARIO,
+                    signInResponseDto.numeroDocumentoCPF
                   );
                   localStorage.setItem(
-                    this.utilConstant.constants.sessao.token,
-                    SignInResponseDto.token
+                    this.utilConstants.SESSAO.TOKEN,
+                    signInResponseDto.token
                   );
                   if (this.utilFuncoes.verificarSessaoUsuario()) {
                     this.utilLoader.hide(isLoading);
@@ -85,26 +85,21 @@ export class LoginComponent implements OnInit {
                       "X"
                     );
                   }
-                } else {
-                  switch (SignInResponseDto.mensagemDto.codigo) {
-                    case 5:
-                      this.signInForm.get("senha").setValue("");
-                      this.signInForm.get("senha").setErrors({ incorrect: true });
-                      this.signInForm
-                        .get("numeroDocumentoCPF")
-                        .setErrors({ incorrect: true });
-                      break;
-                  }
+                } else if (signInResponseDto.mensagemDto.codigo ==  11) {
+                  this.signInForm.get("senha").setValue("");
+                  this.signInForm.get("senha").setErrors({ incorrect: true });
+                  this.signInForm
+                    .get("numeroDocumentoCPF")
+                    .setErrors({ incorrect: true });
                 }
                 this.utilLoader.hide(isLoading);
               })
               .catch((err) => {
-                this.matSnackBar.open(
+                this.utilLoader.hide(isLoading); this.matSnackBar.open(
                   "Não foi possivel realizar a conexão com os nossos servidores.",
                   "X"
                 );
-              })
-              
+              });
           } else {
             this.matSnackBar.open(
               "Favor corrigir os campos marcados em vermelho.",
@@ -112,7 +107,7 @@ export class LoginComponent implements OnInit {
             );
             this.utilLoader.hide(isLoading);
           }
-        })
+        });
       });
   }
 }

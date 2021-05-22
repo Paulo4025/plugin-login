@@ -17,6 +17,16 @@ export interface ServiceInterface {
   consultarListaTipoEmpresa: ServiceRequest;
   consultaPerfilFuncionario: ServiceRequest;
   consultarListaTipoCargo: ServiceRequest;
+  adicionarCargoFuncionario: ServiceRequest;
+  consultarCargoFuncionario: ServiceRequest;
+  desvincularCargoFuncionario: ServiceRequest;
+  consultarListaTipoContato: ServiceRequest;
+  inserirContatoEmpresa: ServiceRequest;
+  alterarContatoEmpresa: ServiceRequest;
+  inserirEnderecoEmpresa: ServiceRequest;
+  alterarEnderecoEmpresa: ServiceRequest;
+  excluirEndereco: ServiceRequest;
+  excluirContato: ServiceRequest;
 }
 export interface ServiceRequest {
   endPoint: string;

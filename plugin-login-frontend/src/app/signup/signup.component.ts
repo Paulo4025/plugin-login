@@ -2,7 +2,8 @@ import { Component, OnInit } from "@angular/core";
 import { FormGroup, FormControl, Validators } from "@angular/forms";
 import { MatSnackBar } from "@angular/material/snack-bar";
 import { Router } from "@angular/router";
-import { UtilConstant } from "plugins/plugin-common/plugin-common-frontend/src/app/util-constants";
+import { UtilConstants } from "plugins/plugin-common/plugin-common-frontend/src/app/util-constants";
+import { UtilExpressaoRegular } from "plugins/plugin-common/plugin-common-frontend/src/app/util-expressao-regular";
 import { UtilFuncoes } from "plugins/plugin-common/plugin-common-frontend/src/app/util-funcoes";
 import { MensagemDto } from "plugins/plugin-common/plugin-common-frontend/src/app/util-interface/MensagemDto";
 import { UtilLoader } from "plugins/plugin-common/plugin-common-frontend/src/app/util-loader/util-loader";
@@ -17,11 +18,12 @@ import { ServiceConfig } from "../service/ServiceConfig";
 export class SignupComponent implements OnInit {
   constructor(
     private utilLoader: UtilLoader,
-    private utilConstant: UtilConstant,
+    private utilConstants: UtilConstants,
     private utilFuncoes: UtilFuncoes,
     private matSnackBar: MatSnackBar,
     private utilService: UtilService,
     private serviceConfig: ServiceConfig,
+    private utilExpressaoRegular : UtilExpressaoRegular,
     private router: Router
   ) { }
 
@@ -30,21 +32,21 @@ export class SignupComponent implements OnInit {
       "",
       Validators.compose([
         Validators.required,
-        Validators.pattern(this.utilConstant.expressaoRegular.numeroCelular),
+        Validators.pattern(this.utilExpressaoRegular.NUMERO_CELULAR),
       ])
     ),
     email: new FormControl(
       "",
       Validators.compose([
         Validators.required,
-        Validators.pattern(this.utilConstant.expressaoRegular.email),
+        Validators.pattern(this.utilExpressaoRegular.EMAIL),
       ])
     ),
     nomeCompleto: new FormControl(
       "",
       Validators.compose([
         Validators.required,
-        Validators.pattern(this.utilConstant.expressaoRegular.nomeCompleto),
+        Validators.pattern(this.utilExpressaoRegular.NOME_COMPLETO),
       ])
     ),
     numeroDocumentoCPF: new FormControl(
