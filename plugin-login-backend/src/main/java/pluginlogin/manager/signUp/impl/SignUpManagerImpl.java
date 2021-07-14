@@ -22,8 +22,8 @@ import core.model.entity.MestreContatoPessoaEntity;
 import core.model.entity.MestrePessoaEntity;
 import core.model.entity.MestreUsuarioSistemaEntity;
 import core.model.entity.PessoaNaturalEntity;
-import core.util.Core_Funcoes;
-import core.util.Core_Mensagem;
+import core.util.CoreFuncoes;
+import core.util.CoreMensagem;
 import pluginlogin.manager.signup.SignUpManager;
 import pluginlogin.model.dto.SignUpFormDto;
  
@@ -77,7 +77,7 @@ public class SignUpManagerImpl implements SignUpManager {
 			mensagemDto = this.validarDadosPreCadastro(signUpFormDto.getNumeroDocumentoCPF(), signUpFormDto.getEmail(),
 					signUpFormDto.getCelular(), entityManagerModel.getEntityManager());
 
-			String[] pass = new Core_Funcoes().gerarSenha();
+			String[] pass = new CoreFuncoes().gerarSenha();
 			if (mensagemDto.getStatus() == true && mensagemDto.getCodigo() == Constants.CODIGO_VALIDACAO_SUCESSO) {
 				MestrePessoaEntity mestrePessoaEntity = new MestrePessoaEntity();
 				mestrePessoaEntity.setIdTipoPessoa(Constants.ID_TIPO.PESSOA.ID_TIPO_PESSOA_NATURAL);
@@ -125,7 +125,7 @@ public class SignUpManagerImpl implements SignUpManager {
 				mestreUsuarioSistemaEntity = new MestreUsuarioSistemaManagerImpl().merge(mestreUsuarioSistemaEntity,
 						entityManagerModel.getEntityManager());
 
-				mensagemDto = new Core_Mensagem().cadastroRealizadoSucesso();
+				mensagemDto = new CoreMensagem().cadastroRealizadoSucesso();
 				mensagemDto.setTemp(pass[0]);
 			}
 			return mensagemDto;
@@ -168,21 +168,21 @@ public class SignUpManagerImpl implements SignUpManager {
 				.consultarMestreContatoPessoaPorContato(celular, entityManagerModel.getEntityManager());
 		if (mestreContatoPessoaEntityEmail == null && identificacaoPessoaEntity == null
 				&& mestreContatoPessoaEntityCelular == null) {
-			mensagemDto = new Core_Mensagem().validacaoSucesso();
+			mensagemDto = new CoreMensagem().validacaoSucesso();
 		} else if (mestreContatoPessoaEntityEmail != null && identificacaoPessoaEntity != null
 				&& mestreContatoPessoaEntityCelular != null) {
-			mensagemDto = new Core_Mensagem().emailCpfCelularJaCadastrado();
+			mensagemDto = new CoreMensagem().emailCpfCelularJaCadastrado();
 		} else if (mestreContatoPessoaEntityEmail != null && identificacaoPessoaEntity != null
 				&& mestreContatoPessoaEntityCelular == null) {
-			mensagemDto = new Core_Mensagem().emailCpfJaCadastrado();
+			mensagemDto = new CoreMensagem().emailCpfJaCadastrado();
 		} else if (mestreContatoPessoaEntityEmail != null && mestreContatoPessoaEntityCelular != null) {
-			mensagemDto = new Core_Mensagem().emailCelularJaRegistrado();
+			mensagemDto = new CoreMensagem().emailCelularJaRegistrado();
 		} else if (mestreContatoPessoaEntityEmail != null) {
-			mensagemDto = new Core_Mensagem().emailJaCadastrado();
+			mensagemDto = new CoreMensagem().emailJaCadastrado();
 		} else if (mestreContatoPessoaEntityCelular != null) {
-			mensagemDto = new Core_Mensagem().celularJaRegistrado();
+			mensagemDto = new CoreMensagem().celularJaRegistrado();
 		} else if (identificacaoPessoaEntity != null) {
-			mensagemDto = new Core_Mensagem().cpfJaCadastrado();
+			mensagemDto = new CoreMensagem().cpfJaCadastrado();
 		}
 		return mensagemDto;
 	}

@@ -8,6 +8,7 @@ import { Ip } from "plugins/plugin-common/plugin-common-frontend/src/app/util-in
 import { SignInResponseDto } from "plugins/plugin-common/plugin-common-frontend/src/app/util-interface/SignInResponseDto";
 import { UtilLoader } from "plugins/plugin-common/plugin-common-frontend/src/app/util-loader/util-loader";
 import { UtilService } from "plugins/plugin-common/plugin-common-frontend/src/app/util-service";
+import { UtilStorage } from "plugins/plugin-common/plugin-common-frontend/src/app/util-storage";
 import { ServiceConfig } from "../service/ServiceConfig";
 @Component({
   selector: "app-login",
@@ -22,8 +23,11 @@ export class LoginComponent implements OnInit {
     private utilFuncoes: UtilFuncoes,
     private serviceConfig: ServiceConfig,
     private router: Router,
-    private utilConstants: UtilConstants
-  ) { }
+    private utilConstants: UtilConstants,
+    private utilStorage: UtilStorage
+  ) {
+    this.utilStorage.limparPilhasDePaginas();
+  }
 
   private signInForm = new FormGroup({
     numeroDocumentoCPF: new FormControl(
@@ -45,7 +49,7 @@ export class LoginComponent implements OnInit {
     this.utilLoader
       .show()
       .then((isLoading: HTMLIonLoadingElement | boolean) => {
-        this.utilFuncoes.consultarIpDispositivo().then((ip: Ip) => {
+        this.utilService.consultarIpDispositivo().then((ip: Ip) => {
           this.signInForm.markAllAsTouched();
           this.signInForm = this.utilFuncoes.validaNumeroDocumentoCPF(
             this.signInForm
@@ -85,7 +89,7 @@ export class LoginComponent implements OnInit {
                       "X"
                     );
                   }
-                } else if (signInResponseDto.mensagemDto.codigo ==  11) {
+                } else if (signInResponseDto.mensagemDto.codigo == 11) {
                   this.signInForm.get("senha").setValue("");
                   this.signInForm.get("senha").setErrors({ incorrect: true });
                   this.signInForm

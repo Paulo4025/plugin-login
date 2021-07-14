@@ -5,6 +5,7 @@ import { UtilFuncoes } from "plugins/plugin-common/plugin-common-frontend/src/ap
 import { MensagemDto } from "plugins/plugin-common/plugin-common-frontend/src/app/util-interface/mensagemDto";
 import { UtilLoader } from "plugins/plugin-common/plugin-common-frontend/src/app/util-loader/util-loader";
 import { UtilService } from "plugins/plugin-common/plugin-common-frontend/src/app/util-service";
+import { UtilStorage } from "plugins/plugin-common/plugin-common-frontend/src/app/util-storage";
 import { ServiceConfig } from "../service/ServiceConfig";
 
 @Component({
@@ -18,8 +19,11 @@ export class RecuperarSenhaComponent implements OnInit {
     private serviceConfig: ServiceConfig,
     private utilService: UtilService,
     private matSnackBar: MatSnackBar,
-    private utilLoader: UtilLoader
-  ) {}
+    private utilLoader: UtilLoader, 
+    private utilStorage: UtilStorage
+  ) {
+    this.utilStorage.limparPilhasDePaginas();
+  }
 
   private recuperarSenhaForm = new FormGroup({
     numeroDocumentoCPF: new FormControl(
@@ -28,7 +32,7 @@ export class RecuperarSenhaComponent implements OnInit {
     ),
     email: new FormControl("", Validators.compose([Validators.required])),
   });
-  ngOnInit(): void {}
+  ngOnInit(): void { }
 
   verificarNumeroCPF() {
     this.recuperarSenhaForm = this.utilFuncoes.validaNumeroDocumentoCPF(

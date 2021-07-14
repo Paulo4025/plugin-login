@@ -8,6 +8,7 @@ import { UtilFuncoes } from "plugins/plugin-common/plugin-common-frontend/src/ap
 import { MensagemDto } from "plugins/plugin-common/plugin-common-frontend/src/app/util-interface/MensagemDto";
 import { UtilLoader } from "plugins/plugin-common/plugin-common-frontend/src/app/util-loader/util-loader";
 import { UtilService } from "plugins/plugin-common/plugin-common-frontend/src/app/util-service";
+import { UtilStorage } from "plugins/plugin-common/plugin-common-frontend/src/app/util-storage";
 import { ServiceConfig } from "../service/ServiceConfig";
 
 @Component({
@@ -23,9 +24,12 @@ export class SignupComponent implements OnInit {
     private matSnackBar: MatSnackBar,
     private utilService: UtilService,
     private serviceConfig: ServiceConfig,
-    private utilExpressaoRegular : UtilExpressaoRegular,
-    private router: Router
-  ) { }
+    private utilExpressaoRegular: UtilExpressaoRegular,
+    private router: Router,
+    private utilStorage: UtilStorage
+  ) {
+    this.utilStorage.limparPilhasDePaginas();
+  }
 
   private signUpForm = new FormGroup({
     celular: new FormControl(

@@ -8,13 +8,30 @@ export class ServiceConfig {
   constructor(
     private utilConstants: UtilConstants,
     private configuration: Configuration
-  ) { }
+  ) {}
 
   public serviceInterface: ServiceInterface = {
-    excluirContato:{
+    alterarDadosEmpresa: {
       endPoint:
         this.configuration.ambient.endPoint +
-        "/contatoService/excluirContato",
+        "/empresaService/alterarDadosEmpresa",
+      method: this.utilConstants.ID_TIPO.REQUEST.POST,
+      json: {
+        razaoSocial: null,
+        nomeFantasia: null,
+        numeroDocumentoCNPJ: null,
+        loginDto: {
+          ipDispositivo: null,
+          usuarioAcesso: localStorage.getItem(
+            this.utilConstants.SESSAO.USUARIO
+          ),
+          token: localStorage.getItem(this.utilConstants.SESSAO.TOKEN),
+        },
+      },
+    },
+    excluirContato: {
+      endPoint:
+        this.configuration.ambient.endPoint + "/contatoService/excluirContato",
       method: this.utilConstants.ID_TIPO.REQUEST.POST,
       json: {
         idContatoPessoa: null,
@@ -27,7 +44,7 @@ export class ServiceConfig {
         },
       },
     },
-    excluirEndereco:{
+    excluirEndereco: {
       endPoint:
         this.configuration.ambient.endPoint +
         "/enderecoService/excluirEndereco",
@@ -57,7 +74,7 @@ export class ServiceConfig {
         cep: null,
         descricao: null,
         idTipoCidade: null,
-        numeroDocumento : null,
+        numeroDocumento: null,
         loginDto: {
           ipDispositivo: null,
           usuarioAcesso: localStorage.getItem(
@@ -81,7 +98,7 @@ export class ServiceConfig {
         cep: null,
         descricao: null,
         idTipoCidade: null,
-        numeroDocumento : null,
+        numeroDocumento: null,
         loginDto: {
           ipDispositivo: null,
           usuarioAcesso: localStorage.getItem(
@@ -93,7 +110,8 @@ export class ServiceConfig {
     },
     alterarContatoEmpresa: {
       endPoint:
-        this.configuration.ambient.endPoint + "/contatoService/alterarContatoEmpresa",
+        this.configuration.ambient.endPoint +
+        "/contatoService/alterarContatoEmpresa",
       method: this.utilConstants.ID_TIPO.REQUEST.POST,
       json: {
         numeroDocumentCNPJ: null,
@@ -109,7 +127,8 @@ export class ServiceConfig {
     },
     inserirContatoEmpresa: {
       endPoint:
-        this.configuration.ambient.endPoint + "/contatoService/inserirContatoEmpresa",
+        this.configuration.ambient.endPoint +
+        "/contatoService/inserirContatoEmpresa",
       method: this.utilConstants.ID_TIPO.REQUEST.POST,
       json: {
         numeroDocumentCNPJ: null,
@@ -124,37 +143,41 @@ export class ServiceConfig {
     },
     consultarListaTipoContato: {
       endPoint:
-        this.configuration.ambient.endPoint + "/tipoService/consultarListaTipoContato",
+        this.configuration.ambient.endPoint +
+        "/tipoService/consultarListaTipoContato",
       method: this.utilConstants.ID_TIPO.REQUEST.POST,
       json: {},
     },
     desvincularCargoFuncionario: {
       endPoint:
-        this.configuration.ambient.endPoint + "/funcionarioService/desvincularCargoFuncionario",
+        this.configuration.ambient.endPoint +
+        "/funcionarioService/desvincularCargoFuncionario",
       method: this.utilConstants.ID_TIPO.REQUEST.POST,
       json: {
         listaIdCargo: [],
         numeroDocumentoCNPJ: null,
-        numeroDocumentoCPF: null
+        numeroDocumentoCPF: null,
       },
     },
     consultarCargoFuncionario: {
       endPoint:
-        this.configuration.ambient.endPoint + "/funcionarioService/consultarCargoFuncionario",
+        this.configuration.ambient.endPoint +
+        "/funcionarioService/consultarCargoFuncionario",
       method: this.utilConstants.ID_TIPO.REQUEST.POST,
       json: {
         numeroDocumentoCNPJ: null,
-        numeroDocumentoCPF: null
+        numeroDocumentoCPF: null,
       },
     },
     adicionarCargoFuncionario: {
       endPoint:
-        this.configuration.ambient.endPoint + "/funcionarioService/adicionarCargoFuncionario",
+        this.configuration.ambient.endPoint +
+        "/funcionarioService/adicionarCargoFuncionario",
       method: this.utilConstants.ID_TIPO.REQUEST.POST,
       json: {
         listaIdCargo: [],
         numeroDocumentoCNPJ: null,
-        numeroDocumentoCPF: null
+        numeroDocumentoCPF: null,
       },
     },
     consultarListaTipoCargo: {

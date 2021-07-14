@@ -16,8 +16,8 @@ import core.model.dto.MensagemDto;
 import core.model.entity.AutorizacaoUsuarioEntity;
 import core.model.entity.MestreUsuarioSistemaEntity;
 import core.model.entity.ParametrosEntity;
-import core.util.Core_Funcoes;
-import core.util.Core_Mensagem;
+import core.util.CoreFuncoes;
+import core.util.CoreMensagem;
 import pluginlogin.manager.signin.SignInManager;
 import pluginlogin.model.dto.SignInFormDTO;
 import pluginlogin.model.dto.SignInResponseDTO;
@@ -48,12 +48,12 @@ public class SignInManagerImpl implements SignInManager {
 					autorizacaoUsuarioEntity = new AutorizacaoUsuarioManagerImpl().merge(autorizacaoUsuarioEntity,
 							entityManagerModel.getEntityManager());
 
-					mensagemDto = new Core_Mensagem().tokenEncontrado();
+					mensagemDto = new CoreMensagem().tokenEncontrado();
 				} else {
-					mensagemDto = new Core_Mensagem().tokenJaEstaAtivado();
+					mensagemDto = new CoreMensagem().tokenJaEstaAtivado();
 				}
 			} else {
-				mensagemDto = new Core_Mensagem().tokenNaoEncontrado();
+				mensagemDto = new CoreMensagem().tokenNaoEncontrado();
 			}
 			new PersistenceManagerImpl().commitTransaction(entityManagerModel);
 		} catch (Exception e) {
@@ -90,7 +90,7 @@ public class SignInManagerImpl implements SignInManager {
 			if (mestreUsuarioSistemaEntity != null) {
 				if (mestreUsuarioSistemaEntity.getAtivo() == Constants.ATIVO_S) {
 					AutorizacaoUsuarioEntity autorizacaoUsuarioEntity = new AutorizacaoUsuarioEntity();
-					autorizacaoUsuarioEntity.setToken(new Core_Funcoes().gerarToken(
+					autorizacaoUsuarioEntity.setToken(new CoreFuncoes().gerarToken(
 							mestreUsuarioSistemaEntity.getUsuarioLogin() + signInFormDTO.getIpDispositivo()));
 					autorizacaoUsuarioEntity.setIdUsuario(mestreUsuarioSistemaEntity.getIdUsuario());
 					autorizacaoUsuarioEntity = new AutorizacaoUsuarioManagerImpl()
@@ -100,7 +100,7 @@ public class SignInManagerImpl implements SignInManager {
 						// - Usuario e senha existem, porem o dispositivo não possui autorização.
 						autorizacaoUsuarioEntity = new AutorizacaoUsuarioEntity();
 
-						autorizacaoUsuarioEntity.setToken(new Core_Funcoes().gerarToken(
+						autorizacaoUsuarioEntity.setToken(new CoreFuncoes().gerarToken(
 								mestreUsuarioSistemaEntity.getUsuarioLogin() + signInFormDTO.getIpDispositivo()));
 						autorizacaoUsuarioEntity.setIdUsuario(mestreUsuarioSistemaEntity.getIdUsuario());
 						autorizacaoUsuarioEntity.setDataRegistro(new Date());
@@ -114,15 +114,13 @@ public class SignInManagerImpl implements SignInManager {
 										mestreUsuarioSistemaEntity.getIdUsuario()),
 								mestreUsuarioSistemaEntity.getEmail());
 
-						mensagemDto = new MensagemDto();
-						mensagemDto = new Core_Mensagem().loginNovoDispositivo();
+						mensagemDto = new CoreMensagem().loginNovoDispositivo();
 						mensagemDto.setMensagem(
 								mensagemDto.getMensagem().replace("<EMAIL>", mestreUsuarioSistemaEntity.getEmail()));
 						signInResponseDTO.setMensagemDto(mensagemDto);
 					} else {
 						if (autorizacaoUsuarioEntity.getAtivo() == Constants.ATIVO_N) {
-							mensagemDto = new MensagemDto();
-							mensagemDto = new Core_Mensagem().loginNovoDispositivo();
+							mensagemDto = new CoreMensagem().loginNovoDispositivo();
 
 							new MailManagerImpl().enviarEmail(
 									this.pegarUrlAtivarTokenUsuario(autorizacaoUsuarioEntity.getToken(),
@@ -135,14 +133,14 @@ public class SignInManagerImpl implements SignInManager {
 						} else {
 							signInResponseDTO.setToken(autorizacaoUsuarioEntity.getToken());
 							signInResponseDTO.setNumeroDocumentoCPF(signInFormDTO.getNumeroDocumentoCPF());
-							signInResponseDTO.setMensagemDto(new Core_Mensagem().usuarioEncontrado());
+							signInResponseDTO.setMensagemDto(new CoreMensagem().usuarioEncontrado());
 						}
 					}
 				} else {
-					signInResponseDTO.setMensagemDto(new Core_Mensagem().usuarioNaoVigente());
+					signInResponseDTO.setMensagemDto(new CoreMensagem().usuarioNaoVigente());
 				}
 			} else {
-				signInResponseDTO.setMensagemDto(new Core_Mensagem().usuarioNaoEncontrado());
+				signInResponseDTO.setMensagemDto(new CoreMensagem().usuarioNaoEncontrado());
 			}
 			new PersistenceManagerImpl().commitTransaction(entityManagerModel);
 		} catch (Exception e) {

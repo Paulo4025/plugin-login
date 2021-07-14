@@ -27,6 +27,7 @@ export interface ServiceInterface {
   alterarEnderecoEmpresa: ServiceRequest;
   excluirEndereco: ServiceRequest;
   excluirContato: ServiceRequest;
+  alterarDadosEmpresa: ServiceRequest;
 }
 export interface ServiceRequest {
   endPoint: string;
